@@ -1,0 +1,83 @@
+
+<RetryScreen>:
+    Button:
+        background_normal: ''
+        background_down: ''
+        background_color: 0, 0, 0, 1
+        font_size: 70
+        bold: True
+        pos: 0, -50
+        text: 'Retry'
+        on_release: app.on_retry()
+    Label:
+        font_size: 50
+        pos: 0, 85
+        text: 'Score: {}'.format(app.points)
+    Label:
+        font_size: 50
+        pos: 0, 40
+        text: 'Highscore: {}'.format(app.highscore)
+        
+<SplashScreen>:
+    Label:
+        pos: 0, 200
+        font_size: 100
+        bold: True
+        text: 'BOUNCE'
+    Button:
+        background_normal: ''
+        background_down: ''
+        background_color: 0, 0, 0, 1
+        pos: 0, -100
+        font_size: 65
+        text: 'Play'
+        on_release: app.screenmanager.current = 'game'
+        
+<GameScreen>:
+    game: game
+    BounceGame:
+        id: game
+    Label:
+        font_size: 100
+        bold: True
+        pos: 50 - root.width / 2, root.height / 2 - 50
+        text: str(game.points)
+
+<BounceGame>:
+    size: root.size
+    pos: root.pos
+    ball: ball
+    Ball:
+        id: ball
+        pos: root.width / 4, root.height / 3
+
+<Ball>:
+    size: 75, 75
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Obstacle>:
+    top_bar: bar2
+    bottom_bar: bar1
+    opening_y: self.opening_y
+    width: 100
+    Bar:
+        id: bar1
+        width: root.width
+        height: root.opening_y
+        x: root.x
+        y: 0
+    Bar:
+        id: bar2
+        width: root.width
+        height: 10000
+        x: root.x
+        y: root.opening_y + 200
+
+<Bar>:
+    canvas:
+        Rectangle:
+            size: self.size
+            pos: self.pos
